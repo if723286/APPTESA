@@ -72,8 +72,8 @@ def calcular_salario(tipo_unidad, vueltas, descanso_dia, descansa_domingo, bono_
 
     # Detalles del salario para la tabla
     detalles_salario = {
-        "Concepto": ["Sueldo base", "Tiempo extra", "Vueltas extra", "Descanso laborado", "Prima dominical (si trabajo en domingo)",
-                     "Bono lealtad", "Bono descanso (si descanso el día de su descanso)", "Bono productividad",
+        "Concepto": ["Sueldo base", "Tiempo extra **aumento**", "Vueltas extra", "Descanso laborado **aumento**", "Prima dominical **nuevo** (si trabajo en domingo)",
+                     "Bono lealtad **nuevo** ", "Bono descanso (si descanso el día de su descanso)", "Bono productividad",
                      "Bono rendimiento", "Monedero electrónico"],
         "Cantidad $": [f"${'{:,.2f}'.format(sueldo_base)}", f"${'{:,.2f}'.format(pago_horas_trabajo)}",
                        f"${'{:,.2f}'.format(pago_vuelta_extra)}", f"${'{:,.2f}'.format(pago_descanso_laborado)}",
@@ -113,6 +113,21 @@ def main():
         st.subheader("Detalles del Salario")
         st.table(detalles_salario)
         st.success(f"Tu salario calculado es: ${'{:,.2f}'.format(salario_calculado)}")
+
+
+        # Mensaje sobre beneficios de la empresa en color azul
+        mensaje_beneficios = """
+        🌟 **¡Otros beneficios que tienes con TESA!** 🌟
+        Te recordamos algunas prestaciones que quizás no siempre tienes en cuenta, pero ahi estan:
+        - **Caja de ahorro**
+        - **Seguro de vida**
+        - **Gastos funerarios**
+        - **Comedor**
+        """
+
+        # Mostrar el mensaje de beneficios en Streamlit
+        st.markdown(mensaje_beneficios, unsafe_allow_html=True)
+
 
         # Nota sobre reducciones de ISR e IMSS
         st.warning("Recuerda que este es tu salario nominal. Aquí no están calculadas las reducciones de ISR e IMSS.")
