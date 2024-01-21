@@ -19,14 +19,14 @@ def calcular_salario(tipo_unidad, vueltas, descanso_dia, descansa_domingo, bono_
     }[tipo_unidad] * vueltas_extra
 
     # Pago por descanso en día de descanso
-    pago_descanso_laborado = sueldo_base / 7 * 2 if not descanso_dia else 0
-    descanso = 220 if descanso_dia else 0
+    pago_descanso_laborado = sueldo_base / 7 * 2 if descanso_dia == "No" else 0
+    descanso = 220 if descanso_dia == "Sí" else 0
 
     # Pago por trabajar el domingo
-    pago_domingo = sueldo_base / 7 * 0.25 if not descansa_domingo else 0
+    prima_dominical = sueldo_base / 7 * 0.25 if descansa_domingo == "No" else 0
 
     # Pago por bono de productividad
-    pago_bono_productividad = 200 if bono_productividad else 0
+    pago_bono_productividad = 200 if bono_productividad == "Sí" else 0
 
     # Pago por rendimiento de combustible
     pago_rendimiento_combustible = {
@@ -62,7 +62,7 @@ def calcular_salario(tipo_unidad, vueltas, descanso_dia, descansa_domingo, bono_
         pago_vuelta_extra +
         pago_descanso_laborado +
         descanso +
-        pago_domingo +
+        prima_dominical +
         pago_bono_productividad +
         pago_rendimiento_combustible +
         pago_horas_trabajo +
@@ -77,7 +77,7 @@ def calcular_salario(tipo_unidad, vueltas, descanso_dia, descansa_domingo, bono_
                      "Bono rendimiento", "Monedero electrónico"],
         "Cantidad $": [f"${'{:,.2f}'.format(sueldo_base)}", f"${'{:,.2f}'.format(pago_horas_trabajo)}",
                        f"${'{:,.2f}'.format(pago_vuelta_extra)}", f"${'{:,.2f}'.format(pago_descanso_laborado)}",
-                       f"${'{:,.2f}'.format(pago_domingo)}", f"${'{:,.2f}'.format(bono_lealtad)}",
+                       f"${'{:,.2f}'.format(prima_dominical)}", f"${'{:,.2f}'.format(bono_lealtad)}",
                        f"${'{:,.2f}'.format(descanso)}", f"${'{:,.2f}'.format(pago_bono_productividad)}",
                        f"${'{:,.2f}'.format(pago_rendimiento_combustible)}", f"${'{:,.2f}'.format(monedero)}"]
     }
@@ -85,7 +85,7 @@ def calcular_salario(tipo_unidad, vueltas, descanso_dia, descansa_domingo, bono_
     return salario_total, detalles_salario
 
 def main():
-    st.title("Calculadora de Salario para Choferes de TESA")
+    st.title("Simulador de Salario para Choferes de TESA")
 
     tipo_unidad = st.selectbox("Selecciona el tipo de unidad que manejas", ["Camioneta", "Sprinter", "Camion", "Carro"])
 
@@ -93,15 +93,14 @@ def main():
 
     horas_trabajo = st.number_input("¿Cuántas horas trabajaste?", min_value=0, value=45)
 
-    descanso_dia = st.selectbox("¿Descansaste en tu día de descanso?", options=["Sí", "No"])
+    descanso_dia = st.radio("¿Descansaste en tu día de descanso?", options=["Sí", "No"])
 
-    descansa_domingo = st.selectbox("¿Descansaste el domingo?", options=["Sí", "No"])
+    descansa_domingo = st.radio("¿Descansaste el domingo?", options=["Sí", "No"])
 
-    bono_productividad = st.selectbox("¿Ganaste bono de productividad?", options=["Sí", "No"])
+    bono_productividad = st.radio("¿Ganaste bono de productividad?", options=["Sí", "No"])
 
 
-
-    rendimiento_combustible = st.selectbox("Selecciona tu rendimiento de combustible", ["Bueno", "Bajo", "Medio"])
+    rendimiento_combustible = st.selectbox("Selecciona tu rendimiento de combustible", ["Bueno", "Medio", "Bajo"])
 
 
 
@@ -125,7 +124,7 @@ def main():
         - 📞 3337320671 o 3337322424 ext 106
 
         Horarios de atención:
-        - Viernes, sábado y lunes siguientes al depósito: 8:30 - 14:00 y 17:30 - 20:00 0
+        - Viernes, sábado y lunes siguientes al depósito: 8:30 - 14:00 y de 15:00 - 17:30
         """)
 
         
