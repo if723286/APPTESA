@@ -72,8 +72,8 @@ def calcular_salario(tipo_unidad, vueltas, descanso_dia, descansa_domingo, bono_
 
     # Detalles del salario para la tabla
     detalles_salario = {
-        "Concepto": ["Sueldo base", "Tiempo extra **aumento**", "Vueltas extra", "Descanso laborado **aumento**", "Prima dominical **nuevo** (si trabajo en domingo)",
-                     "Bono lealtad **nuevo** ", "Bono descanso (si descanso el día de su descanso)", "Bono productividad",
+        "Concepto": ["Sueldo base", "Tiempo extra  **aumento**", "Vueltas extra", "Descanso laborado  **aumento**", "Prima dominical  **nuevo** ",
+                     "Bono lealtad  **nuevo** ", "Bono descanso ", "Bono productividad",
                      "Bono rendimiento", "Monedero electrónico"],
         "Cantidad $": [f"${'{:,.2f}'.format(sueldo_base)}", f"${'{:,.2f}'.format(pago_horas_trabajo)}",
                        f"${'{:,.2f}'.format(pago_vuelta_extra)}", f"${'{:,.2f}'.format(pago_descanso_laborado)}",
