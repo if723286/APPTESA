@@ -142,7 +142,7 @@ def main():
         - **Gastos funerarios (del banco)**
         - **Caja de apoyo para gastos funerarios (además de la del banco)**
         - **Comedor**
-        - **Apoyo para útiles escolares a alumnos con un promedio de más del 80**
+        - **Apoyo para útiles escolares a alumnos con un promedio de más de 80**
         - **Uniformes**
         """
 
