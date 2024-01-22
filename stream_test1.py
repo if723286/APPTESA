@@ -20,6 +20,8 @@ def calcular_salario(tipo_unidad, vueltas, descanso_dia, descansa_domingo, bono_
 
     # Pago por descanso en día de descanso
     pago_descanso_laborado = sueldo_base / 7 * 2 if descanso_dia == "No" else 0
+
+    # Pago por descansar (insentivo para que si descanse, si no descansan, se quita este y se les paga descanso laborado)
     descanso = 220 if descanso_dia == "Sí" else 0
 
     # Pago por trabajar el domingo
@@ -45,9 +47,9 @@ def calcular_salario(tipo_unidad, vueltas, descanso_dia, descansa_domingo, bono_
     else:
         pago_horas_trabajo = 0
 
-    # Pago por tiempo laborando en TESA
-    bono_lealtad = 0
-    if vueltas > 11:
+    # Bono lealtad TESA
+    bono_lealtad = 200
+    if vueltas >= 12:
         bono_lealtad= 435
     else:
         pago_horas_trabajo = 200
@@ -70,6 +72,28 @@ def calcular_salario(tipo_unidad, vueltas, descanso_dia, descansa_domingo, bono_
         monedero
     )
 
+    #Horas extra anterior
+    horas_extra_anterior = 0
+    if 48 < horas_trabajo:
+        horas_extra_anterior =  25 * (horas_trabajo - 48) 
+    else: 0
+
+    # Pago por descanso en día de descanso (anterior)
+    pago_descanso_laborado_anterior = 330 if descanso_dia == "No" else 0
+
+
+    # Total del salario
+    salario_total_anterior = (
+        sueldo_base +
+        pago_vuelta_extra +
+        pago_descanso_laborado_anterior +
+        descanso +
+        pago_bono_productividad +
+        pago_rendimiento_combustible +
+        horas_extra_anterior +
+        monedero
+    )
+
     # Detalles del salario para la tabla
     detalles_salario = {
         "Concepto": ["Sueldo base", "Tiempo extra  **aumento**", "Vueltas extra", "Descanso laborado  **aumento**", "Prima dominical  **nuevo** ",
@@ -82,50 +106,44 @@ def calcular_salario(tipo_unidad, vueltas, descanso_dia, descansa_domingo, bono_
                        f"${'{:,.2f}'.format(pago_rendimiento_combustible)}", f"${'{:,.2f}'.format(monedero)}"]
     }
 
-    return salario_total, detalles_salario
+    return salario_total, detalles_salario, salario_total_anterior
 
 def main():
     st.title("Simulador de Salario para Choferes de TESA")
 
     tipo_unidad = st.selectbox("Selecciona el tipo de unidad que manejas", ["Camioneta", "Sprinter", "Camion", "Carro"])
-
     vueltas_extra = st.number_input("¿Cuántas vueltas hiciste?", min_value=0, value=18)
-
     horas_trabajo = st.number_input("¿Cuántas horas trabajaste?", min_value=0, value=45)
-
     descanso_dia = st.radio("¿Descansaste en tu día de descanso?", options=["Sí", "No"])
-
     descansa_domingo = st.radio("¿Descansaste el domingo?", options=["Sí", "No"])
-
     bono_productividad = st.radio("¿Ganaste bono de productividad?", options=["Sí", "No"])
-
-
     rendimiento_combustible = st.selectbox("Selecciona tu rendimiento de combustible", ["Bueno", "Medio", "Bajo"])
 
-
-
     if st.button("Calcular Salario"):
-        salario_calculado, detalles_salario = calcular_salario(tipo_unidad, vueltas_extra, descanso_dia, descansa_domingo, bono_productividad, rendimiento_combustible, horas_trabajo)
-        
-        
+        salario_calculado, detalles_salario, salario_total_anterior = calcular_salario(tipo_unidad, vueltas_extra, descanso_dia, descansa_domingo, bono_productividad, rendimiento_combustible, horas_trabajo)
 
         # Mostrar tabla con detalles del salario
         st.subheader("Detalles del Salario")
         st.table(detalles_salario)
-        st.success(f"Tu salario calculado es: ${'{:,.2f}'.format(salario_calculado)}")
+        st.success(f" Tu **NUEVO** salario calculado es: ${'{:,.2f}'.format(salario_calculado)}")
+        st.markdown(f" Tu salario **anterior** hubiera sido de: ${'{:,.2f}'.format(salario_total_anterior)}")
+
 
 
         # Mensaje sobre beneficios de la empresa en color azul
         mensaje_beneficios = """
         🌟 **¡Otros beneficios que tienes con TESA!** 🌟
-        
+
         Te recordamos algunas prestaciones que quizás no siempre tienes en cuenta, pero ahí estan:
         - **Caja de ahorro**
         - **Seguro de vida**
-        - **Gastos funerarios**
-        - **Comedor**
-        - **Apoyo para útiles escolares a alumnos con un promedio de más del 90%**
+        - **15 días de aguinaldo**
+        - **Vacaciones pagadas**
+        - **Gastos funerarios (del banco)**
         - **Caja de apoyo para gastos funerarios (además de la del banco)**
+        - **Comedor**
+        - **Apoyo para útiles escolares a alumnos con un promedio de más del 80**
+        - **Uniformes**
         """
 
         # Mostrar el mensaje de beneficios en Streamlit
@@ -139,14 +157,13 @@ def main():
         st.markdown("""
         ## ¿Tienes dudas?
         Si tienes alguna pregunta, no dudes en comunicarte con nosotros al número de atención:
-        - 📞 3337320671 o 3337322424 ext 106
+        - 📞 **3337320671** o **3337322424** ext **106**
 
         Horarios de atención:
-        - Viernes, sábado y lunes siguientes al depósito: 8:30 - 14:00 y de 15:00 - 17:30
+        - Viernes, sábado y lunes siguientes al depósito: **8:30 - 14:00** y de **15:00 - 17:30**
         """)
 
         
 
 if __name__ == "__main__":
     main()
-
