@@ -118,11 +118,14 @@ def main():
         # Mensaje sobre beneficios de la empresa en color azul
         mensaje_beneficios = """
         🌟 **¡Otros beneficios que tienes con TESA!** 🌟
-        Te recordamos algunas prestaciones que quizás no siempre tienes en cuenta, pero ahi estan:
+        
+        Te recordamos algunas prestaciones que quizás no siempre tienes en cuenta, pero ahí estan:
         - **Caja de ahorro**
         - **Seguro de vida**
         - **Gastos funerarios**
         - **Comedor**
+        - **Apoyo para útiles escolares a alumnos con un promedio de más del 90%**
+        - **Caja de apoyo para gastos funerarios (además de la del banco)**
         """
 
         # Mostrar el mensaje de beneficios en Streamlit
