@@ -125,7 +125,7 @@ def main():
         # Mostrar tabla con detalles del salario
         st.subheader("Detalles del Salario")
         st.table(detalles_salario)
-        st.success(f" Tu **NUEVO** salario calculado es: ${'{:,.2f}'.format(salario_calculado)}")
+        st.success(f" Tu **NUEVO** salario calculado es: **${'{:,.2f}'.format(salario_calculado)}**")
         st.markdown(f" Tu salario **anterior** hubiera sido de: ${'{:,.2f}'.format(salario_total_anterior)}")
 
 
