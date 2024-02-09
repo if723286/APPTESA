@@ -32,9 +32,10 @@ def calcular_salario(tipo_unidad, vueltas, descanso_dia, descansa_domingo, bono_
 
     # Pago por rendimiento de combustible
     pago_rendimiento_combustible = {
-        'Bajo': 100,
-        'Medio': 150,
-        'Bueno': 200
+        '0': 0,
+        '100': 100,
+        '200': 200,
+        '250': 250
     }[rendimiento_combustible]
 
     # Pago por horas de trabajo
@@ -117,7 +118,12 @@ def main():
     descanso_dia = st.radio("¿Descansaste en tu día de descanso?", options=["Sí", "No"])
     descansa_domingo = st.radio("¿Descansaste el domingo?", options=["Sí", "No"])
     bono_productividad = st.radio("¿Ganaste bono de productividad?", options=["Sí", "No"])
-    rendimiento_combustible = st.selectbox("Selecciona tu rendimiento de combustible", ["Bueno", "Medio", "Bajo"])
+    rendimiento_combustible = st.radio("Selecciona tu rendimiento de combustible", ["0", "100", "200", "250"])
+
+        # Aviso al usuario antes de calcular
+    st.warning("Ten en cuenta que el siguiente cálculo es **antes de impuestos del gobierno y deducciones**.")
+
+    st.warning("Los siguientes resultados son **solo una simulación** de lo que podría ser tu sueldo con los datos que proporcionaste." )
 
     if st.button("Calcular Salario"):
         salario_calculado, detalles_salario, salario_total_anterior = calcular_salario(tipo_unidad, vueltas_extra, descanso_dia, descansa_domingo, bono_productividad, rendimiento_combustible, horas_trabajo)
@@ -126,6 +132,10 @@ def main():
         st.subheader("Detalles del Salario")
         st.table(detalles_salario)
         st.success(f" Tu **NUEVO** salario calculado es: **${'{:,.2f}'.format(salario_calculado)}**")
+        
+        # Nota sobre reducciones de ISR e IMSS
+        st.warning("Recuerda que este es tu salario antes de impuestos. **Aquí no están calculadas las reducciones de ISR e IMSS**.")
+
         st.markdown(f" Tu salario **anterior** hubiera sido de: ${'{:,.2f}'.format(salario_total_anterior)}")
 
 
@@ -151,7 +161,7 @@ def main():
 
 
         # Nota sobre reducciones de ISR e IMSS
-        st.warning("Recuerda que este es tu salario nominal. Aquí no están calculadas las reducciones de ISR e IMSS.")
+        st.warning("Recuerda que este es tu salario nominal. **Aquí no están calculadas las reducciones de ISR e IMSS**.")
 
         # Mensaje adicional con número de comunicación y horarios
         st.markdown("""
