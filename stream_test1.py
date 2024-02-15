@@ -167,7 +167,8 @@ def main():
         st.markdown("""
         ## ¿Tienes dudas?
         Si tienes alguna pregunta, no dudes en comunicarte con nosotros al número de atención:
-        - 📞 **3337320671** o **3337322424** ext **106**
+        - 📞 **33 2255 8585** 
+        - o **33 3732 2747** ext **106**
 
         Horarios de atención:
         - Viernes, sábado y lunes siguientes al depósito: **8:30 - 14:00** y de **15:00 - 17:30**
