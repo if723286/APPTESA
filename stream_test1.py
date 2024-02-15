@@ -32,10 +32,10 @@ def calcular_salario(tipo_unidad, vueltas, descanso_dia, descansa_domingo, bono_
 
     # Pago por rendimiento de combustible
     pago_rendimiento_combustible = {
-        '0': 0,
-        '100': 100,
-        '200': 200,
-        '250': 250
+        '$0': 0,
+        '$100': 100,
+        '$200': 200,
+        '$250': 250
     }[rendimiento_combustible]
 
     # Pago por horas de trabajo
@@ -118,7 +118,7 @@ def main():
     descanso_dia = st.radio("¿Descansaste en tu día de descanso?", options=["Sí", "No"])
     descansa_domingo = st.radio("¿Descansaste el domingo?", options=["Sí", "No"])
     bono_productividad = st.radio("¿Ganaste bono de productividad?", options=["Sí", "No"])
-    rendimiento_combustible = st.radio("Selecciona tu rendimiento de combustible", ["0", "100", "200", "250"])
+    rendimiento_combustible = st.radio("Selecciona tu rendimiento de combustible", ["$0", "$100", "$200", "$250"])
 
         # Aviso al usuario antes de calcular
     st.warning("Ten en cuenta que el siguiente cálculo es **antes de impuestos del gobierno y deducciones**.")
